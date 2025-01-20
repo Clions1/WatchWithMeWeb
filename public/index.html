@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch With Me - Ekran Paylaşım Platformu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Watch With Me</a>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Yayın Oluştur</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="createRoomForm">
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Kullanıcı Adı</label>
+                                <input type="text" class="form-control" id="username" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Oda Şifresi</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Oda Oluştur</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Yayına Katıl</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="joinRoomForm">
+                            <div class="mb-3">
+                                <label for="joinUsername" class="form-label">Kullanıcı Adı</label>
+                                <input type="text" class="form-control" id="joinUsername" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="roomId" class="form-label">Oda Numarası</label>
+                                <input type="text" class="form-control" id="roomId" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="roomPassword" class="form-label">Oda Şifresi</label>
+                                <input type="password" class="form-control" id="roomPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-success">Odaya Katıl</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4 d-none" id="streamContainer">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Canlı Yayın</h5>
+                        <div>
+                            Oda No: <span id="roomIdDisplay" class="badge bg-primary"></span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <video id="streamVideo" class="w-100" controls playsinline>
+                            Tarayıcınız video elementini desteklemiyor.
+                        </video>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h6 class="mb-0">Katılımcılar</h6>
+                    </div>
+                    <div class="card-body p-2">
+                        <ul class="list-group list-group-flush" id="participantsList">
+                        </ul>
+                    </div>
+                </div>
+                <div class="card chat-card">
+                    <div class="card-header">
+                        <h6 class="mb-0">Sohbet</h6>
+                    </div>
+                    <div class="card-body p-2">
+                        <div id="chatMessages" class="chat-messages mb-3">
+                        </div>
+                        <form id="chatForm">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="chatInput" placeholder="Mesajınız...">
+                                <button class="btn btn-primary" type="submit">Gönder</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html> 

@@ -1,0 +1,132 @@
+body {
+    min-height: 100vh;
+}
+
+#streamVideo {
+    max-height: 70vh;
+    background-color: #000;
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+    border-color: #80bdff;
+}
+
+.btn {
+    padding: 0.5rem 1.5rem;
+}
+
+.chat-card {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 400px);
+}
+
+.chat-card .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-message {
+    max-width: 80%;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    position: relative;
+}
+
+.chat-message.own-message {
+    align-self: flex-end;
+    background-color: #007bff;
+    color: white;
+    border-radius: 15px 15px 0 15px;
+}
+
+.chat-message.other-message {
+    align-self: flex-start;
+    background-color: #f8f9fa;
+    border-radius: 15px 15px 15px 0;
+}
+
+.chat-message .username {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+}
+
+.chat-message.own-message .username {
+    color: #e9ecef;
+}
+
+.chat-message.other-message .username {
+    color: #0d6efd;
+}
+
+.chat-message .time {
+    font-size: 0.75rem;
+    position: absolute;
+    bottom: 2px;
+    right: 8px;
+}
+
+.chat-message.own-message .time {
+    color: #e9ecef;
+}
+
+.chat-message.other-message .time {
+    color: #6c757d;
+}
+
+#participantsList {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.participant-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.participant-host {
+    color: #198754;
+    font-weight: bold;
+}
+
+.participant-self {
+    background-color: #f8f9fa;
+}
+
+.participant-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 10px;
+    background-color: #6c757d;
+    color: white;
+}
+
+.participant-host .participant-badge {
+    background-color: #198754;
+} 
