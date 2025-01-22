@@ -1,132 +1,114 @@
+/* Genel Stiller */
 body {
     min-height: 100vh;
-}
-
-#streamVideo {
-    max-height: 70vh;
-    background-color: #000;
+    background-color: #f8f9fa;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 .card {
+    border: none;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-.navbar-brand {
-    font-weight: bold;
+/* Video Alanı */
+#streamVideo {
+    background-color: #000;
+    min-height: 400px;
+    max-height: 70vh;
+    object-fit: contain;
 }
 
-.form-control:focus {
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
-    border-color: #80bdff;
-}
-
-.btn {
-    padding: 0.5rem 1.5rem;
-}
-
-.chat-card {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 400px);
-}
-
-.chat-card .card-body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.chat-messages {
-    flex: 1;
-    overflow-y: auto;
-    border: 1px solid #dee2e6;
-    border-radius: 0.25rem;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.chat-message {
-    max-width: 80%;
-    margin-bottom: 0.5rem;
-    padding: 0.5rem;
-    border-radius: 0.25rem;
-    position: relative;
-}
-
-.chat-message.own-message {
-    align-self: flex-end;
-    background-color: #007bff;
-    color: white;
-    border-radius: 15px 15px 0 15px;
-}
-
-.chat-message.other-message {
-    align-self: flex-start;
-    background-color: #f8f9fa;
-    border-radius: 15px 15px 15px 0;
-}
-
-.chat-message .username {
-    font-weight: bold;
-    font-size: 0.9rem;
-    margin-bottom: 0.2rem;
-}
-
-.chat-message.own-message .username {
-    color: #e9ecef;
-}
-
-.chat-message.other-message .username {
-    color: #0d6efd;
-}
-
-.chat-message .time {
-    font-size: 0.75rem;
+.stream-status {
     position: absolute;
-    bottom: 2px;
-    right: 8px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.chat-message.own-message .time {
-    color: #e9ecef;
-}
-
-.chat-message.other-message .time {
-    color: #6c757d;
-}
-
-#participantsList {
-    max-height: 200px;
+/* Sohbet Alanı */
+.chat-messages {
+    height: 400px;
     overflow-y: auto;
 }
 
-.participant-item {
-    padding: 0.5rem;
-    border-bottom: 1px solid #dee2e6;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.message {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    max-width: 85%;
 }
 
-.participant-host {
-    color: #198754;
+.message.own {
+    background-color: #e3f2fd;
+    margin-left: auto;
+}
+
+.message.other {
+    background-color: #f5f5f5;
+}
+
+.message .username {
     font-weight: bold;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
 }
 
-.participant-self {
-    background-color: #f8f9fa;
+.message .text {
+    word-break: break-word;
 }
 
-.participant-badge {
+.message .time {
     font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    border-radius: 10px;
-    background-color: #6c757d;
-    color: white;
+    color: #6c757d;
+    margin-top: 0.25rem;
 }
 
-.participant-host .participant-badge {
-    background-color: #198754;
+/* Katılımcı Listesi */
+.participant-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+.participant-item .badge {
+    margin-left: auto;
+}
+
+/* Form Elemanları */
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+.btn-check:checked + .btn-outline-primary {
+    color: #fff;
+}
+
+/* Animasyonlar */
+.fade {
+    transition: opacity 0.2s ease-in-out;
+}
+
+.slide {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Duyarlı Tasarım */
+@media (max-width: 768px) {
+    .chat-messages {
+        height: 300px;
+    }
+
+    #streamVideo {
+        min-height: 300px;
+    }
+
+    .message {
+        max-width: 90%;
+    }
 } 
