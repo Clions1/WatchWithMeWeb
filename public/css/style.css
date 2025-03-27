@@ -320,11 +320,16 @@ h1, h2, h3, h4, h5, h6 {
 .video-controls {
     position: absolute;
     bottom: 15px;
-    right: 15px;
+    left: 0;
+    right: 0;
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    padding: 0 15px;
     opacity: 0;
     transition: opacity 0.3s ease;
+    width: 100%;
+    background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    padding-top: 30px;
 }
 
 .video-container:hover .video-controls {
@@ -347,6 +352,19 @@ h1, h2, h3, h4, h5, h6 {
 
 .video-controls .btn:hover {
     background-color: rgba(0, 0, 0, 0.9);
+}
+
+.video-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    width: 80px;
+    margin-right: 5px;
 }
 
 /* Live Badge */
@@ -436,12 +454,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .scroll-to-bottom-btn {
     display: none !important;
-}
-
-.volume-control {
-    display: flex;
-    align-items: center;
-    width: 80px;
 }
 
 .form-range {

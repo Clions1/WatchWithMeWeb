@@ -786,9 +786,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Handle incoming tracks (for viewers)
         if (!isHost) {
             peerConnection.ontrack = event => {
+                console.log('Received remote track', event);
                 const remoteStream = event.streams[0];
                 const streamVideo = document.getElementById('streamVideo');
                 if (streamVideo) {
+                    // Set the stream as video source
                     streamVideo.srcObject = remoteStream;
                     
                     // Set initial volume based on slider if present
@@ -797,7 +799,54 @@ document.addEventListener('DOMContentLoaded', function() {
                         streamVideo.volume = volumeSlider.value;
                     }
                     
-                    streamVideo.play().catch(console.error);
+                    // Add loadedmetadata event listener to avoid AbortError
+                    streamVideo.onloadedmetadata = () => {
+                        console.log('Video metadata loaded, attempting to play');
+                        
+                        // Try to play only when we have metadata and the video is ready
+                        const playPromise = streamVideo.play();
+                        
+                        if (playPromise !== undefined) {
+                            playPromise
+                                .then(() => {
+                                    console.log('Video playing successfully');
+                                    // Hide any loading indicators if needed
+                                    if (streamPausedMessage) {
+                                        streamPausedMessage.classList.add('d-none');
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error('Error playing video:', error);
+                                    // Show a user-friendly error message
+                                    showToast('Video Hatası', 'Video oynatılamadı. Lütfen sayfayı yenileyip tekrar deneyin.', 'error');
+                                    
+                                    // Add a manual play button if autoplay fails
+                                    if (streamVideo.parentElement) {
+                                        const playButton = document.createElement('button');
+                                        playButton.className = 'btn btn-primary manual-play-btn';
+                                        playButton.innerHTML = '<i class="fas fa-play"></i> Videoyu Oynat';
+                                        playButton.style.position = 'absolute';
+                                        playButton.style.top = '50%';
+                                        playButton.style.left = '50%';
+                                        playButton.style.transform = 'translate(-50%, -50%)';
+                                        playButton.style.zIndex = '10';
+                                        
+                                        playButton.onclick = () => {
+                                            streamVideo.play();
+                                            playButton.remove();
+                                        };
+                                        
+                                        streamVideo.parentElement.appendChild(playButton);
+                                    }
+                                });
+                        }
+                    };
+                    
+                    // Also handle errors
+                    streamVideo.onerror = (e) => {
+                        console.error('Video element error:', e);
+                        showToast('Bağlantı Hatası', 'Video yüklenirken bir hata oluştu.', 'error');
+                    };
                 }
             };
         }

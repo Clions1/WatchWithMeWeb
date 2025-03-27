@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginPanel = document.getElementById('loginPanel');
     const adminPanel = document.getElementById('adminPanel');
     const adminLoginForm = document.getElementById('adminLoginForm');
+    const loginButton = document.getElementById('loginButton');
     const logoutBtn = document.getElementById('logoutBtn');
     const messagesList = document.getElementById('messagesList');
     const noMessagesPlaceholder = document.getElementById('noMessagesPlaceholder');
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const messageDate = document.getElementById('messageDate');
     const messageStatus = document.getElementById('messageStatus');
     const messageContent = document.getElementById('messageContent');
-    const toggleReadStatus = document.getElementById('toggleReadStatus');
+    const toggleReadBtn = document.getElementById('toggleReadStatus');
     const deleteMessage = document.getElementById('deleteMessage');
     
     // Sistem İstatistikleri
@@ -57,6 +58,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Giriş formunu dinle
     document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
         e.preventDefault(); // Form submission'ı engelle
+        
+        const username = document.getElementById('adminUsername').value.trim();
+        const password = document.getElementById('adminPassword').value.trim();
+        
+        if (username && password) {
+            login(username, password);
+        } else {
+            showToast('Kullanıcı adı ve şifre zorunludur', 'warning');
+        }
+    });
+    
+    // Ek olarak login butonuna da tıklama olayı ekle
+    loginButton.addEventListener('click', function(e) {
+        e.preventDefault();
         
         const username = document.getElementById('adminUsername').value.trim();
         const password = document.getElementById('adminPassword').value.trim();
@@ -112,7 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             body: JSON.stringify({ username, password })
         })
-        .then(response => response.json())
+        .then(response => {
+            return response.json();
+        })
         .then(data => {
             if (data.success) {
                 // Giriş başarılı
@@ -135,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
             } else {
                 // Giriş başarısız
-                showToast('Kullanıcı adı veya şifre yanlış', 'danger');
+                showToast('Giriş Başarısız', data.message || 'Kullanıcı adı veya şifre yanlış', 'danger');
                 
                 // Şifre alanını temizle
                 document.getElementById('adminPassword').value = '';

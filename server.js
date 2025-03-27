@@ -4,15 +4,18 @@ const socketIo = require('socket.io');
 const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 // MongoDB bağlantısı
-const mongoURI = 'mongodb+srv://ahmetyunussarikan547:yv8NP5gqT83uUksm@cluster0.wu9sc9n.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const mongoURI = process.env.MONGODB_URI;
 mongoose.connect(mongoURI)
     .then(() => console.log('MongoDB bağlantısı başarılı'))
     .catch(err => console.error('MongoDB bağlantı hatası:', err));
 
 // Contact modelini içe aktar
 const Contact = require('./models/Contact');
+// Admin modelini içe aktar
+const Admin = require('./models/Admin');
 
 const app = express();
 const server = http.createServer(app);
@@ -26,26 +29,41 @@ app.use(express.json()); // JSON verilerini işlemek için
 const rooms = {};
 // İletişim formlarını geçici saklamak için (artık veritabanında saklanacak)
 const contactMessages = [];
-// Admin hesapları
-const adminAccounts = [
-    { username: 'admin', password: 'admin123' } // Güvenlik için gerçek uygulamada şifrelenmiş olmalı
-];
 
 // Ana sayfa
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
+// Admin sayfası yönlendirmesi
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
 // Admin panel için API endpoint
-app.post('/api/admin/login', (req, res) => {
+app.post('/api/admin/login', async (req, res) => {
     const { username, password } = req.body;
     
-    const admin = adminAccounts.find(acc => acc.username === username && acc.password === password);
-    
-    if (admin) {
-        res.json({ success: true });
-    } else {
-        res.status(401).json({ success: false, message: 'Geçersiz kullanıcı adı veya şifre' });
+    try {
+        // MongoDB'den admin kullanıcısını bul
+        const admin = await Admin.findOne({ username });
+        
+        // Admin bulunamadıysa veya şifre yanlışsa
+        if (!admin) {
+            return res.status(401).json({ success: false, message: 'Geçersiz kullanıcı adı veya şifre' });
+        }
+        
+        // Şifre karşılaştırması
+        const isMatch = await admin.comparePassword(password);
+        
+        if (isMatch) {
+            res.json({ success: true });
+        } else {
+            res.status(401).json({ success: false, message: 'Geçersiz kullanıcı adı veya şifre' });
+        }
+    } catch (error) {
+        console.error('Admin girişi hatası:', error);
+        res.status(500).json({ success: false, message: 'Sunucu hatası' });
     }
 });
 
@@ -193,7 +211,8 @@ io.on('connection', (socket) => {
                 viewers: [],
                 password,
                 messages: [],
-                isPaused: false // Ekran paylaşımı durumu için yeni alan
+                isPaused: false, // Ekran paylaşımı durumu için yeni alan
+                usedUsernames: [username] // Kullanılmış kullanıcı adlarını takip etmek için yeni alan
             };
             
             // Kullanıcıyı odaya sok
@@ -231,7 +250,8 @@ io.on('connection', (socket) => {
         
         // Kullanıcı adı kullanılıyor mu kontrol et
         const usernameExists = rooms[roomId].viewers.some(viewer => viewer.username === username) || 
-                               rooms[roomId].host.username === username;
+                               rooms[roomId].host.username === username || 
+                               rooms[roomId].usedUsernames.includes(username);
         
         if (usernameExists) {
             socket.emit('error', { message: 'Bu kullanıcı adı zaten kullanılıyor.' });
@@ -241,6 +261,7 @@ io.on('connection', (socket) => {
         // Kullanıcıyı izleyici olarak ekle
         const viewer = { id: socket.id, username };
         rooms[roomId].viewers.push(viewer);
+        rooms[roomId].usedUsernames.push(username);
         
         // Kullanıcıyı odaya sok
         socket.join(roomId);
