@@ -3,111 +3,427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Watch With Me - Gerçek zamanlı ekran paylaşım platformu">
+    <meta name="keywords" content="ekran paylaşımı, video konferans, canlı yayın">
+    <meta name="author" content="Watch With Me">
+    <!-- Sosyal medya paylaşım meta etiketleri -->
+    <meta property="og:title" content="Watch With Me - Ekran Paylaşım Platformu">
+    <meta property="og:description" content="Arkadaşlarınızla gerçek zamanlı ekran paylaşımı yapın">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://watchwithme.com">
+    
     <title>Watch With Me - Ekran Paylaşım Platformu</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📺</text></svg>">
+    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
         <div class="container">
-            <a class="navbar-brand" href="#">Watch With Me</a>
+            <a class="navbar-brand" href="#"><i class="fas fa-tv me-2"></i>Watch With Me</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" id="navHome"><i class="fas fa-home me-1"></i> Ana Sayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="navCreateStream"><i class="fas fa-video me-1"></i> Yayın Oluştur</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="navJoinStream"><i class="fas fa-sign-in-alt me-1"></i> Yayına Katıl</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="navContact"><i class="fas fa-envelope me-1"></i> İletişim</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
+    <!-- Main Content -->
     <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Yayın Oluştur</h5>
-                    </div>
-                    <div class="card-body">
-                        <form id="createRoomForm">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Kullanıcı Adı</label>
-                                <input type="text" class="form-control" id="username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Oda Şifresi</label>
-                                <input type="password" class="form-control" id="password" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Oda Oluştur</button>
-                        </form>
+        <!-- Home Page / Nasıl Çalışır -->
+        <section id="home-section" class="animate__animated animate__fadeIn">
+            <div class="row mb-5">
+                <div class="col-12">
+                    <div class="hero-section text-center py-5">
+                        <h1 class="display-4 fw-bold mb-4">Ekranınızı Paylaşın, Anlatın ve Gösterin!</h1>
+                        <p class="lead mb-4">Watch With Me ile ekranınızı saniyeler içinde paylaşın ve arkadaşlarınızla, iş arkadaşlarınızla veya öğrencilerinizle gerçek zamanlı olarak iletişim kurun.</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <button id="createRoomBtnHome" class="btn btn-primary btn-lg"><i class="fas fa-video me-2"></i>Yayın Oluştur</button>
+                            <button id="joinRoomBtnHome" class="btn btn-outline-primary btn-lg"><i class="fas fa-sign-in-alt me-2"></i>Yayına Katıl</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Yayına Katıl</h5>
+
+            <div class="row mb-5" id="nasil-calisir">
+                <div class="col-12">
+                    <h2 class="text-center mb-5">Nasıl Çalışır?</h2>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="card h-100 feature-card">
+                                <div class="card-body text-center">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </div>
+                                    <h5 class="card-title">1. Oda Oluştur</h5>
+                                    <p class="card-text">Kullanıcı adınızı girin, bir şifre belirleyin ve ekranınızı paylaşmaya başlayın. Benzersiz bir oda numarası oluşturulacak.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card h-100 feature-card">
+                                <div class="card-body text-center">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-share-alt"></i>
+                                    </div>
+                                    <h5 class="card-title">2. Oda Numarasını Paylaş</h5>
+                                    <p class="card-text">Oluşturulan oda numarasını ve şifreyi arkadaşlarınızla paylaşın. Herhangi bir uygulama indirmelerine gerek yok!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card h-100 feature-card">
+                                <div class="card-body text-center">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-desktop"></i>
+                                    </div>
+                                    <h5 class="card-title">3. Paylaşıma Başla</h5>
+                                    <p class="card-text">Ekranınız anında paylaşılacak! Arkadaşlarınız sohbet özelliğini kullanarak sizinle iletişim kurabilir.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <form id="joinRoomForm">
-                            <div class="mb-3">
-                                <label for="joinUsername" class="form-label">Kullanıcı Adı</label>
-                                <input type="text" class="form-control" id="joinUsername" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="roomId" class="form-label">Oda Numarası</label>
-                                <input type="text" class="form-control" id="roomId" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="roomPassword" class="form-label">Oda Şifresi</label>
-                                <input type="password" class="form-control" id="roomPassword" required>
-                            </div>
-                            <button type="submit" class="btn btn-success">Odaya Katıl</button>
-                        </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Create Stream Page -->
+        <section id="create-stream-section" class="animate__animated animate__fadeIn d-none">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2>Yayın Oluştur</h2>
+                        <button class="btn btn-outline-secondary" id="backToHomeFromCreate">
+                            <i class="fas fa-arrow-left me-2"></i>Ana Sayfaya Dön
+                        </button>
                     </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card create-card">
+                        <div class="card-body">
+                            <h3 class="card-title text-center mb-4"><i class="fas fa-video me-2"></i>Yayın Oluştur</h3>
+                            <form id="createRoomForm">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Kullanıcı Adı</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        <input type="text" class="form-control" id="username" placeholder="Kullanıcı adınız" required>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="password" class="form-label">Oda Şifresi</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                        <input type="password" class="form-control" id="password" placeholder="Oda şifresi" required>
+                                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-text">Bu şifreyi izleyicilerinizle paylaşın</div>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-play-circle me-2"></i>Yayını Başlat
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Stream Page -->
+        <section id="join-stream-section" class="animate__animated animate__fadeIn d-none">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2>Yayına Katıl</h2>
+                        <button class="btn btn-outline-secondary" id="backToHomeFromJoin">
+                            <i class="fas fa-arrow-left me-2"></i>Ana Sayfaya Dön
+                        </button>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card join-card">
+                        <div class="card-body">
+                            <h3 class="card-title text-center mb-4"><i class="fas fa-sign-in-alt me-2"></i>Yayına Katıl</h3>
+                            <form id="joinRoomForm">
+                                <div class="mb-3">
+                                    <label for="joinUsername" class="form-label">Kullanıcı Adı</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                        <input type="text" class="form-control" id="joinUsername" placeholder="Kullanıcı adınız" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="roomId" class="form-label">Oda Numarası</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
+                                        <input type="text" class="form-control" id="roomId" placeholder="Oda numarası" required>
+                                    </div>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="roomPassword" class="form-label">Oda Şifresi</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                        <input type="password" class="form-control" id="roomPassword" placeholder="Oda şifresi" required>
+                                        <button class="btn btn-outline-secondary toggle-password" type="button" data-target="roomPassword">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Yayına Katıl
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact-section" class="animate__animated animate__fadeIn d-none">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2>İletişim</h2>
+                        <button class="btn btn-outline-secondary" id="backToHomeFromContact">
+                            <i class="fas fa-arrow-left me-2"></i>Ana Sayfaya Dön
+                        </button>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title text-center mb-4"><i class="fas fa-envelope me-2"></i>Bize Ulaşın</h3>
+                            <form id="contactForm">
+                                <div class="mb-3">
+                                    <label for="contactName" class="form-label">Ad Soyad</label>
+                                    <input type="text" class="form-control" id="contactName" placeholder="Adınız ve soyadınız" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="contactEmail" class="form-label">E-posta Adresiniz</label>
+                                    <input type="email" class="form-control" id="contactEmail" placeholder="E-posta adresiniz" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="contactSubject" class="form-label">Konu</label>
+                                    <input type="text" class="form-control" id="contactSubject" placeholder="Mesajınızın konusu" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="contactMessage" class="form-label">Mesajınız</label>
+                                    <textarea class="form-control" id="contactMessage" rows="5" placeholder="Mesajınızı buraya yazın" required></textarea>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-paper-plane me-2"></i>Mesajı Gönder
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stream Container -->
+        <section id="streamContainer" class="d-none animate__animated animate__fadeIn">
+            <div class="row mb-4">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <h2 class="stream-title">Oda: <span id="roomIdDisplay"></span></h2>
+                    <div class="stream-actions">
+                        <button id="copyRoomId" class="btn btn-sm btn-outline-primary me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Oda numarasını kopyala">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button id="pauseStream" class="btn btn-sm btn-outline-warning me-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Ekran paylaşımını durdur/başlat">
+                            <i class="fas fa-pause"></i>
+                        </button>
+                        <button id="leaveRoom" class="btn btn-sm btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Odadan ayrıl">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mb-4">
+                    <div class="video-container">
+                        <div id="streamPausedMessage" class="stream-paused-overlay d-none">
+                            <i class="fas fa-pause-circle"></i>
+                            <h3>Ekran paylaşımı duraklatıldı</h3>
+                            <p>Yayıncı ekran paylaşımını duraklatmış durumda...</p>
+                        </div>
+                        <video id="streamVideo" playsinline autoplay></video>
+                        <div class="video-controls">
+                            <div class="d-flex justify-content-between w-100">
+                                <div class="video-info">
+                                    <span class="badge bg-primary rounded-pill">
+                                        <i class="fas fa-eye me-1"></i><span id="viewersCount">0</span> İzleyici
+                                    </span>
+                                </div>
+                                <div class="video-buttons">
+                                    <div class="volume-control me-2">
+                                        <input type="range" class="form-range" id="volumeSlider" min="0" max="1" step="0.05" value="1">
+                                    </div>
+                                    <button id="toggleMute" class="btn btn-sm btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Sesi kapat/aç">
+                                        <i class="fas fa-volume-up"></i>
+                                    </button>
+                                    <button id="toggleFullscreen" class="btn btn-sm btn-dark" data-bs-toggle="tooltip" data-bs-placement="top" title="Tam ekran">
+                                        <i class="fas fa-expand"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card chat-card h-100">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="chatTabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="chat-tab" data-bs-toggle="tab" data-bs-target="#chat" type="button" role="tab" aria-controls="chat" aria-selected="true">
+                                        <i class="fas fa-comments me-1"></i> Sohbet
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="participants-tab" data-bs-toggle="tab" data-bs-target="#participants" type="button" role="tab" aria-controls="participants" aria-selected="false">
+                                        <i class="fas fa-users me-1"></i> Katılımcılar
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="tab-content h-100" id="chatTabsContent">
+                                <div class="tab-pane fade show active h-100" id="chat" role="tabpanel" aria-labelledby="chat-tab">
+                                    <div class="chat-container">
+                                        <div class="chat-messages" id="chatMessages"></div>
+                                        <form id="chatForm" class="chat-input">
+                                            <div class="input-group">
+                                                <input type="text" id="chatInput" class="form-control" placeholder="Mesajınızı yazın...">
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-paper-plane"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade h-100" id="participants" role="tabpanel" aria-labelledby="participants-tab">
+                                    <ul class="list-group list-group-flush" id="participantsList"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Toast Notification -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="toastNotification" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong class="me-auto" id="toastTitle">Bildirim</strong>
+                    <small id="toastTime">Şimdi</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" id="toastMessage">
+                    Bu bir bildirim mesajıdır.
                 </div>
             </div>
         </div>
 
-        <div class="row mt-4 d-none" id="streamContainer">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Canlı Yayın</h5>
-                        <div>
-                            Oda No: <span id="roomIdDisplay" class="badge bg-primary"></span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <video id="streamVideo" class="w-100" controls playsinline>
-                            Tarayıcınız video elementini desteklemiyor.
-                        </video>
-                    </div>
-                </div>
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-container d-none">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Yükleniyor...</span>
             </div>
-            <div class="col-md-4">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h6 class="mb-0">Katılımcılar</h6>
-                    </div>
-                    <div class="card-body p-2">
-                        <ul class="list-group list-group-flush" id="participantsList">
-                        </ul>
-                    </div>
-                </div>
-                <div class="card chat-card">
-                    <div class="card-header">
-                        <h6 class="mb-0">Sohbet</h6>
-                    </div>
-                    <div class="card-body p-2">
-                        <div id="chatMessages" class="chat-messages mb-3">
-                        </div>
-                        <form id="chatForm">
-                            <div class="input-group">
-                                <input type="text" class="form-control" id="chatInput" placeholder="Mesajınız...">
-                                <button class="btn btn-primary" type="submit">Gönder</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <p class="mt-2">Yükleniyor...</p>
         </div>
     </div>
 
-    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <!-- Footer -->
+    <footer class="footer mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-tv me-2"></i>Watch With Me</h5>
+                    <p class="text-muted">Arkadaşlarınızla gerçek zamanlı ekran paylaşımı yapın.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Bağlantılar</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none footer-link" id="footerHome">Ana Sayfa</a></li>
+                        <li><a href="#" class="text-decoration-none footer-link" id="footerCreateStream">Yayın Oluştur</a></li>
+                        <li><a href="#" class="text-decoration-none footer-link" id="footerJoinStream">Yayına Katıl</a></li>
+                        <li><a href="#" class="text-decoration-none footer-link" id="footerContact">İletişim</a></li>
+                        <li><a href="/admin.html" class="text-decoration-none footer-link">Admin Panel</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Bağlantılarımız</h5>
+                    <div class="social-links">
+                        <a href="https://www.clionsdev.com" target="_blank" class="social-link" title="Clions Dev Web Sitesi"><i class="fas fa-globe"></i></a>
+                        <a href="https://github.com/Clions1" target="_blank" class="social-link" title="Clions Dev GitHub"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="text-muted mb-0">&copy; 2025 Clions Dev tüm hakları saklıdır.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Socket.io -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Custom JS -->
     <script src="/js/main.js"></script>
 </body>
-</html> 
+</html>
